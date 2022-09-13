@@ -2,60 +2,26 @@
 #include <time.h>
 #include <stdlib.h>
 
-int getRandomNumber(int level);
-void showQuestion(int level, int num1, int num2);
-void success();
-void fail();
-
 int main() {
 
-    // 문이 5개가 있고, 각 문마다 점점 어려운 수식 퀴즈가 출제 (랜덤)
-    // 맞히면 통과, 틀리면 실패
+//    //배열
+//    int subway_1 = 30; // 지하철 1호차에 30명이 타고 있다
+//    int subway_2 = 40;
+//    int subway_3 = 50;
+//
+//    printf("지하철 1호차에 %d 명이 타고 있습니다.\n", subway_1);
+//    printf("지하철 2호차에 %d 명이 타고 있습니다.\n", subway_2);
+//    printf("지하철 3호차에 %d 명이 타고 있습니다.\n", subway_3);
 
-    srand(time(NULL));
-    int count = 0; //맞힌 문제 갯수
-    for (int i = 1; i <= 5; i++) {
-//        x * y = ?
-        int num1 = getRandomNumber(i);
-        int num2 = getRandomNumber(i);
-//        printf("%d X %d = ?", num1, num2);
-        showQuestion(i, num1, num2);
+    // 여러 개의 벼수를 함께, 동시에 생성
+    int subway_array[3];
+    subway_array[0] = 30;
+    subway_array[1] = 40;
+    subway_array[2] = 50;
 
-        int answer = -1;
-        scanf("%d", &answer);
-        if (answer == -1) {
-            printf("프로그램을 종료합니다.");
-            exit(0);
-        } else if (answer == num1 * num2) {
-            //성공
-            success();
-            count++;
-        } else {
-            //실패
-            fail();
-        }
+    for (int i = 0; i < 3; i++) {
+        printf("지하철 %d 호차에 %d 명이 타고 있습니다.\n", i + 1, subway_array[i]);
     }
-
-    printf("\n\n 당신은 5개의 비밀번호 중 %d 개를 맞혔습니다.\n", count);
-
+    
     return 0;
-}
-
-int getRandomNumber(int level) {
-    return rand() % (level * 7) - 1;
-}
-
-void showQuestion(int level, int num1, int num2) {
-    printf("\n\n\n######## %d 번째 비밀번호 ########\n", level);
-    printf("\n\t%d x %d 는?\n\n", num1, num2);
-    printf("######################################\n");
-    printf("\n비밀번호를 입력하세요. (종료 : -1) >> ");
-}
-
-void success() {
-    printf("\n >> Good! 정답입니다! \n");
-}
-
-void fail() {
-    printf("\n >> 땡.. 틀렸습니다.. \n");
 }
