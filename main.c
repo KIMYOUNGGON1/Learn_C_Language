@@ -323,3 +323,11 @@ int main() {
 void p(int num) {
     printf("num 은 %d 입니다\n", num);
 }
+
+// 전달값 : 36
+// 함수 : ㅁ + 4
+// 반환형 : ?
+int 함수이름 (int num, int num2) {
+    return num + 4;
+}
+
