@@ -5,6 +5,7 @@
 //선언
 void p(int num);
 void function_without_return();
+int function_with_return();
 
 int main() {
 
@@ -321,6 +322,10 @@ int main() {
     //반환값이 없는 함수
     function_without_return();
 
+    //반환값이 있는 함수
+    int ret = function_with_return();
+    p(ret);
+
     return 0;
 }
 
@@ -338,5 +343,10 @@ void p(int num) {
 
 void function_without_return() {
     printf("반환값이 없는 함수입니다.\n");
+}
+
+int function_with_return() {
+    printf("반환값이 있는 함수입니다.\n");
+    return 10;
 }
 
