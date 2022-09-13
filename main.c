@@ -2,6 +2,9 @@
 #include <time.h>
 #include <stdlib.h>
 
+//선언
+void p(int num);
+
 int main() {
 
     /*
@@ -72,7 +75,7 @@ int main() {
         printf("Hello Wolrd %d\n", i++);
     } while(i <= 10);
     */
-    
+
     //2중 반복문
     /*
     for (int i = 1; i <= 3; ++i) {
@@ -259,6 +262,7 @@ int main() {
      */
 
     //Up and Down
+    /*
     srand(time(NULL));
     int num = rand() % 100 + 1; // 1 - 100 사이의 숫자
     printf("숫자 : %d\n", num);
@@ -284,10 +288,38 @@ int main() {
             break;
         }
     }
+     */
 
+    //function
+    //계산기
+    int num = 2;
+//    printf("num 은 %d 입니다\n", num); // 2
+    p(num);
 
+    // 2 + 3 은?
+    num = num + 3; // num += 3;
+//    printf("num 은 %d 입니다.\n", num); //5
+    p(num);
 
+    // 5 - 1 은?
+    num -= 1; //num = num - 1;
+//    printf("num 은 %d 입니다\n", num); //4
+    p(num);
 
+    // 4 x 3은?
+    num *= 3;
+//    printf("num 은 %d 입니다.\n", num); //12
+    p(num);
+
+    //12 / 6은?
+    num /= 6;
+//    printf("num 은 %d 입니다\n", num); //2
+    p(num);
 
     return 0;
+}
+
+//정의
+void p(int num) {
+    printf("num 은 %d 입니다\n", num);
 }
