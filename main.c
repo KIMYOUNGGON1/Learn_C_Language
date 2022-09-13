@@ -6,6 +6,7 @@
 void p(int num);
 void function_without_return();
 int function_with_return();
+void function_without_parameter();
 
 int main() {
 
@@ -326,6 +327,9 @@ int main() {
     int ret = function_with_return();
     p(ret);
 
+    //파라미터(전달값)가 업는 함수
+    function_without_parameter();
+
     return 0;
 }
 
@@ -348,5 +352,9 @@ void function_without_return() {
 int function_with_return() {
     printf("반환값이 있는 함수입니다.\n");
     return 10;
+}
+
+void function_without_parameter() {
+    printf("전달값이 없는 함수입니다.\n");
 }
 
