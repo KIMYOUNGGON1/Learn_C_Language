@@ -2,132 +2,76 @@
 #include <time.h>
 #include <stdlib.h>
 
+
+
 int main() {
 
-//    //배열
-//    int subway_1 = 30; // 지하철 1호차에 30명이 타고 있다
-//    int subway_2 = 40;
-//    int subway_3 = 50;
-//
-//    printf("지하철 1호차에 %d 명이 타고 있습니다.\n", subway_1);
-//    printf("지하철 2호차에 %d 명이 타고 있습니다.\n", subway_2);
-//    printf("지하철 3호차에 %d 명이 타고 있습니다.\n", subway_3);
+    srand(time(NULL));
+    printf("\n\n === 아빠는 대머리 게임 === \n\n");
+    int answer; //사용자 입력값
+    int treatment = rand() % 4; //발모제 선택 (0-3)
 
-    // 여러 개의 벼수를 함께, 동시에 생성
-//    int subway_array[3];
-//    subway_array[0] = 30;
-//    subway_array[1] = 40;
-//    subway_array[2] = 50;
-//
-//    for (int i = 0; i < 3; i++) {
-//        printf("지하철 %d 호차에 %d 명이 타고 있습니다.\n", i + 1, subway_array[i]);
-//    }
+    int cntShowBottle = 0; //이번 게임에 보여줄 병 갯수
+    int prevCntShowBottle = 0; //앞 게임에 보여준 병 갯수
+    //서로 보여주는 병 갯수를 다르게 하여 정답률 향상 (처음에 2개 -> 다음에는 3개...)
 
-    //값 설정 방법
-//    int arr[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-//    for (int i = 0; i < 10; i++) {
-//        printf("%d\n", arr[i]);
-//    }
+    //3번의 기회 (3번의 발모제 투여 시도)
+    for (int i = 1; i <= 3; i++) {
+        int bottle[4] = {0, 0, 0, 0}; //4개의 병
+        do {
+            cntShowBottle = rand() % 2 + 2; //보여줄 병 갯수 (0-1, +2 -> 2 or 3)
+        } while (cntShowBottle == prevCntShowBottle);
 
-    //값은 초기화를 반드시 해야 함.
-//    int arr[10];
-//    for (int i = 0; i < 10; i++) {
-//        printf("%d\n", arr[i]);
-//    }
-
-    //배열 크기는 항상 상수로 선언
-//    int size = 10;
-//    int arr[10];
+        prevCntShowBottle = cntShowBottle;
 
 
-//    int arr[10] = {1, 2}; //3번째 값부터는 자동으로 '0'으로 초기화 됨.
-//    for (int i = 0; i < 10; i++) {
-//        printf("%d\n", arr[i]);
-//    }
+        int isIncluded = 0; //보여줄 병 중에 발모제가 포함되었는지 여부 (1이면 포함, 0이면 불포함)
+        printf(" > %d 번째 시도 : ", i);
 
-//    int arr[] = {1, 2}; //arr[2]
+        //보여줄 병 종류를 선택
+        for (int j = 0; j < cntShowBottle; j++) {
+            int randBottle = rand() % 4; // 0-3
 
-//    float arr_f[5] = {1.0f, 2.0f, 3.0f};
-//    for (int i = 0; i < 5; i++) {
-//        printf("%.2f\n", arr_f[i]);
-//    }
+            // 아직 선택되지 않은 병이면, 선택 처리
+            if (bottle[randBottle] == 0) {
+                bottle[randBottle] = 1;
+                if (randBottle == treatment) {
+                    isIncluded = 1;
+                }
+            }
+                //이미 선택된 병이면 중복이므로 다시 선택
+            else {
+                j--;
+            }
+        }
 
-    // 문자 vs 문자열
-//    char c = 'A';
-//    printf("%c\n", c);
+        //사용자에게 문제 표시
+        for (int k = 0; k < 4; k++) {
+            if (bottle[k] == 1) {
+                printf("%d", k + 1);
+            }
+            printf("물약을 머리에 바릅니다.\n\n");
 
-    //문자열 끝에는 "끝"을 의미하는 NULL 문자 '\0\이 포함되어야 함
-//    char str[6] = "coding"; //[c][o][d][i][n][g] [\0]
-//    char str[7] = "coding";
-//    printf("%s\n", str);
+            if (isIncluded == 1) {
+                printf(" >> 성공!! 머리가 났어요!!! \n");
+            } else {
+                printf(" >> 실패!! 머리가 나지 않았어요.... \n");
+            }
 
-//    char str[] = "coding";
-////    printf("%s\n", str);
-////    printf("%d\n", sizeof(str));
-//
-//    for (int i = 0; i < sizeof(str); i++) {
-//        printf("%c\n", str[i]);
-//    }
+            printf("\n ...... 계속 하려면 아무키나 누르세요 ....");
+            getchar();
+        }
 
-    /*char kor[] = "나도코딩";
-    printf("%s\n", kor);
-    printf("%d\n", sizeof(kor));*/
-    // 영어 1글자 : 1byte
-    // 한글 1글자 : 2byte
-    // 한 글
-    // En gl ish
-    // char 크기 : 1 byte
+        printf("\n\n 발모제는 몇 번일까요?? ");
+        scanf("%d", &answer);
 
-//    char c_array[7] = {'c', 'o', 'd', 'i', 'n', 'g', '\0'};
-//    char c_array[6] = {'c', 'o', 'd', 'i', 'n', 'g'};
-//    printf("%s\n", c_array);
-
-//    char c_array[10] = {'c', 'o','d','i','n','g'};
-////    printf("%s\n", c_array);
-////    for (int i = 0; i < sizeof(c_array); i++) {
-////        printf("%c\n", c_array[i]);
-////    }
-//    for (int i = 0; i < sizeof(c_array); i++) {
-//        printf("%d\n", c_array[i]); //ASCII 코드 값이 출력 (NULL 문자 0으로 입력됨)
-//    }
-
-    //문자열 입력받기 : 경찰서 조서 쓰기 예제
-    /*
-    char name[256];
-    printf("이름을 입력하세요 : ");
-    scanf("%s", name, sizeof(name));
-    printf("%s\n", name); */
-
-    //참고: ASCII 코드? AWSI (미국표준협회) 에서 제시한 표준 코드 체계
-    //7bit, 총 128 개 코드 (0-127)
-    //a : 97 (문자 a 의 아스키코드 정수값)
-    //A : 65
-    //0 : 48
-
-    /*
-    printf("%c\n", 'a');
-    printf("%d\n", 'a');
-
-    printf("%c\n", 'b');
-    printf("%d\n", 'b');
-
-    printf("%c\n", 'A');
-    printf("%d\n", 'A');
-
-    printf("%c\n", '\0');
-    printf("%d\n", '\0');
-
-    printf("%c\n", '0');
-    printf("%d\n", '0');
-
-    printf("%c\n", '1');
-    printf("%d\n", '1');
-     */
-
-    //참고 2 : 0-127 사이의 아스키코드 정수값에 해당하는 문자 확인
-    for (int i = 0; i < 128; i++) {
-        printf("아스키코드 정수 %d : %c\n", i, i);
+        if (answer == treatment + 1) {
+            printf("\n 정답입니다!\n");
+        } else {
+            printf("\n >> 땡! 틀렸어요. 정답은 %d 입니다.\n", treatment + 1);
+        }
     }
+
 
 
     return 0;
