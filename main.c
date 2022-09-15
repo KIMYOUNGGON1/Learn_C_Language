@@ -4,6 +4,7 @@
 
 void swap(int a, int b);
 void swap_addr(int * a, int * b);
+void changeArray(int * ptr);
 
 int main() {
 
@@ -127,6 +128,7 @@ int main() {
      */
 
     //SWAP
+    /*
     int a = 10;
     int b = 20;
     printf("a 의 주소 : %d\n", &a);
@@ -143,6 +145,17 @@ int main() {
     printf("(주소값 전달)Swap 함수 전 => %d, b : %d\n", a, b);
     swap_addr(&a, &b);
     printf("Swap 함수 후 => a : %d, b : %d\n", a, b);
+    */
+
+    //배열일 때, arr2 -> 주소
+    int arr2[3] = {10, 20, 30};
+//    changeArray(arr2);
+    changeArray(&arr2[0]);
+    for (int i = 0; i < 3; i++) {
+        printf("%d\n", arr2[i]);
+    }
+
+    //scanf 에서 &num 과 같이 & 를 사용하는 이유?
 
     return 0;
 }
@@ -167,4 +180,8 @@ void swap_addr(int * a, int * b) {
     * a = * b;
     * b = temp;
     printf("(주소값 전달)Swap_addr 함수 후 => a : %d, b : %d\n", * a, * b);
+}
+
+void changeArray(int * ptr) {
+    ptr[2] = 50;
 }
