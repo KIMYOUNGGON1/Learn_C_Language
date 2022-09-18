@@ -8,13 +8,14 @@
 // 물이 다 증발하기 전에 부지런히 어항에 물을 줘서 물고기를 살려주세요~
 // 물고기는 시간이 지날수록 점점 커져서...나중에는...냠냠...
 
-int level();
+int level;
 int arrayFish[6];
 int * cursor;
 
-int printFished();
+void printFishes();
 void initData();
 void decreaseWater(long elapsedTime);
+int ckeckFishAlive();
 
 int main() {
 
@@ -29,8 +30,9 @@ int main() {
 
     startTime = clock(); // 현재 시간을 millisecond (1000분의 1초) 단위로 반환
     while (1) {
-        printFished();
+        printFishes();
         printf("몇 번 어항에 물을 주시겠어요? ");
+        scanf("%d", &num);
         printf("%d", &num);
 
         //입력값 체크
@@ -40,14 +42,14 @@ int main() {
         }
 
         //총 경과 시간
-        totalElapsedTime = (clock() - startTime) /CLOCKS_PER_SEC;
+        totalElapsedTime = (clock() - startTime) / CLOCKS_PER_SEC;
         printf("총 경과 시간 : %ld 초 \n", totalElapsedTime);
 
         // 직전 물 준 시간 (마지막으로 물 준 시간) 이후로 흐른 시간
         prevElapsedTime = totalElapsedTime - prevElapsedTime;
         printf("최근 경과 시간 : %ld 초\n", prevElapsedTime);
 
-        //어항의 물을 감소 (증발)
+        //어항의 물을 감소 (증발)j
         decreaseWater(prevElapsedTime);
 
         //사용자가 입력한 어항에 물을 준다.
@@ -68,7 +70,7 @@ int main() {
         if(totalElapsedTime / 20 > level-1) {
             //레벨업
             level++; //level : 1 -> level : 2 -> level : 3..
-            printf("*** 축 레벨업 ! 기존 %d 레벨에서 %d 레벨로 업그레이드 ***\n\n", level - 1, level());
+            printf("*** 축 레벨업 ! 기존 %d 레벨에서 %d 레벨로 업그레이드 ***\n\n", level - 1, level);
 
             //최종 레벨 : 5
             if (level == 5) {
@@ -76,6 +78,21 @@ int main() {
                 exit(0);
             }
         }
+
+        // 모든 물고기가 죽었는지 확인
+
+        if (ckeckFishAlive() == 0) {
+            // 물고기 모두 //
+            printf("모든 물고기가.. ㅠㅠ.. 흑흑.. \n");
+            exit(0);
+        } else {
+            //최소 한마리 이상의 물고기는 살아 있음.
+            printf("물고기가 아직 살아 있어요!!\n");
+        }
+        prevElapsedTime = totalElapsedTime;
+
+        // 10 초 -> 15 초 (5초 : prevElapsedTime -> 15초) -> 25초 (10초..?)
+
     }
 
 
@@ -92,7 +109,7 @@ void initData() {
 void printFishes() {
     printf("%3d번 %3d번 %3d번 %3d번 %3d번 %3d번\n", 1, 2, 3, 4, 5, 6);
     for (int i = 0; i < 6; i++) {
-        printf(" %4d ", arrayFish[i]);
+        printf("  %3d ", arrayFish[i]);
     }
     printf("\n\n");
 }
@@ -104,4 +121,13 @@ void decreaseWater(long elapsedTime) {
             arrayFish[i] = 0;
         }
     }
+}
+
+int ckeckFishAlive() {
+    for (int i = 0; i < 6; i++) {
+        if (arrayFish[i] > 0) {
+            return 1; //참 True
+        }
+    }
+    return 0;
 }
