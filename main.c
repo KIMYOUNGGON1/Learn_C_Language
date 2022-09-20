@@ -55,5 +55,11 @@ int main() {
     printf(" 가격 : %d\n", gameInfo2.price);
     printf(" 제작사 : %s\n", gameInfo2.company);
 
+    // 구조체 배열
+    struct GameInfo gameArray[2] = {
+            {"sk도게임", 2017, 50, "나도회사"},
+            {"너도게임", 2017, 100, "너도회사"}
+    };
+
     return 0;
 }
