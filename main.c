@@ -9,8 +9,16 @@ struct GameInfo {
     char *company;
 
     struct GameInfo * friendGame; //연관 업체 게임
-
 };
+
+typedef struct {
+    char *name;
+    int year;
+    int price;
+    char *company;
+
+    struct GameInfo * friendGame; //연관 업체 게임
+} GAME_INFO;
 
 int main() {
 
@@ -84,6 +92,27 @@ int main() {
     printf(" 발매년도 : %.d\n",  gameInfo1.friendGame -> year);
     printf(" 가격 : %d\n",  gameInfo1.friendGame -> price);
     printf(" 제작사 : %s\n",  gameInfo1.friendGame -> company);
+
+    // typedef
+    // 자료형에 별명 지정
+    int i = 1;
+    typedef int integer;
+    typedef float actualNumber;
+    integer intVariable = 3; //int i = 3;
+    actualNumber floatVariable = 3.23f; //float f = 3.23f
+    printf("\n\n정수변수 : %d, 실수변수 %.2f\n\n", intVariable, floatVariable);
+
+    typedef struct GameInfo informationOfGame;
+    informationOfGame game1;
+    game1.name = "한글 게임";
+    game1.year = 2015;
+
+    GAME_INFO game2;
+    game2.name = "한글 게임2";
+    game2.year = 2014;
+
+//    struct GameInformation game3;
+//    game3.name = "한글 게임3";
 
 
     return 0;
