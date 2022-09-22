@@ -2,118 +2,82 @@
 #include <time.h>
 #include <stdlib.h>
 
-struct GameInfo {
-    char *name;
-    int year;
-    int price;
-    char *company;
+// 5마리의 고양이가 있다
+// 아무 키나 눌러서 랜덤으로 고양이를 뽑되,
+// 5마리 모두 다 수집을 해서 열심히 키우면 되는 게임 !
+// 중 복 발 생 가 능!!
 
-    struct GameInfo * friendGame; //연관 업체 게임
-};
+// 고양이
+// 이름, 나이, 성격, 키우기 난이도 (레벨)
 
 typedef struct {
-    char *name;
-    int year;
-    int price;
-    char *company;
+        char * name; //이름
+        int age; //나이
+        char * character; //성격
+        int level; //키우기 난이도 (1 - 5 / 5가 어려움)
+} CAT;
 
-    struct GameInfo * friendGame; //연관 업체 게임
-} GAME_INFO;
+// 현재까지 보유한 고양이
+int collection[5] = {0, 0, 0, 0, 0};
+
+//전체 고양이 리스트
+CAT cats[5];
+
+void initCats(); //고양이 정보 초기화
+void printCat(int selected);
 
 int main() {
 
-    //  [게임 출시]
-    // 이름 : 나도게임
-    // 발매년도 : 2017 년
-    // 가격 : 50원
-    // 제작사 : 나도회사
+    srand(time(NULL));
+    initCats();
+    while (1) {
+        printf("두근두근-! 어느 고양이의 집사가 될까요?\n아무 키나 눌러서 확인하세요!");
+        getchar();
 
-    char * name = "나도게임";
-    int year = 2017;
-    int price = 50;
-    char * company = "나도회사";
+        int selected = rand() * 5; // 0 - 4 사이의 숫자 반환
+        printCat(selected);
 
-    //  [또게임 출시]
-    // 이름 : 너도게임
-    // 발매년도 : 2017 년
-    // 가격 : 100원
-    // 제작사 : 너도회사
-
-    char * name2 = "너도게임";
-    int year2 = 2017;
-    int price2 = 50;
-    char * company2 = "너도회사";
-
-    // 구조체 사용
-    struct GameInfo gameInfo1;
-    gameInfo1.name = "나도게임";
-    gameInfo1.year = 2017;
-    gameInfo1.price = 50;
-    gameInfo1.company = "나도회사";
-
-    // 구조체 출력
-    printf("-- 게임 출시 정보 --\n");
-    printf(" 게임명 : %s\n", gameInfo1.name);
-    printf(" 발매년도 : %.d\n", gameInfo1.year);
-    printf(" 가격 : %d\n", gameInfo1.price);
-    printf(" 제작사 : %s\n", gameInfo1.company);
-
-    // 구조체를 배열처럼 초기화
-    struct GameInfo gameInfo2 = {"너도게임", 2017, 100, "너도회사"};
-    printf("-- 또다른 게임 출시 정보 --\n");
-    printf(" 게임명 : %s\n", gameInfo2.name);
-    printf(" 발매년도 : %.d\n", gameInfo2.year);
-    printf(" 가격 : %d\n", gameInfo2.price);
-    printf(" 제작사 : %s\n", gameInfo2.company);
-
-    // 구조체 배열
-    struct GameInfo gameArray[2] = {
-            {"sk도게임", 2017, 50, "나도회사"},
-            {"너도게임", 2017, 100, "너도회사"}
     };
 
-    // 구조체 포인터
-    struct GameInfo * gamePtr; //미션맨
-    gamePtr = &gameInfo1;
-    printf("\n\n-- 또다른 게임 출시 정보 --\n");
-//    printf(" 게임명 : %s\n", (*gamePtr).name); // *ptr
-//    printf(" 발매년도 : %.d\n", (*gamePtr).year);
-//    printf(" 가격 : %d\n", (*gamePtr).price);
-//    printf(" 제작사 : %s\n", (*gamePtr).company);
-    printf(" 게임명 : %s\n", gamePtr -> name);
-    printf(" 발매년도 : %.d\n", gamePtr -> year);
-    printf(" 가격 : %d\n", gamePtr -> price);
-    printf(" 제작사 : %s\n", gamePtr -> company);
-
-    // 연관 업체 게임 소개
-    gameInfo1.friendGame = &gameInfo2;
-    printf("\n\n-- 연관 업체의 게임 출시 정보 --\n");
-    printf(" 게임명 : %s\n",  gameInfo1.friendGame -> name);
-    printf(" 발매년도 : %.d\n",  gameInfo1.friendGame -> year);
-    printf(" 가격 : %d\n",  gameInfo1.friendGame -> price);
-    printf(" 제작사 : %s\n",  gameInfo1.friendGame -> company);
-
-    // typedef
-    // 자료형에 별명 지정
-    int i = 1;
-    typedef int integer;
-    typedef float actualNumber;
-    integer intVariable = 3; //int i = 3;
-    actualNumber floatVariable = 3.23f; //float f = 3.23f
-    printf("\n\n정수변수 : %d, 실수변수 %.2f\n\n", intVariable, floatVariable);
-
-    typedef struct GameInfo informationOfGame;
-    informationOfGame game1;
-    game1.name = "한글 게임";
-    game1.year = 2015;
-
-    GAME_INFO game2;
-    game2.name = "한글 게임2";
-    game2.year = 2014;
-
-//    struct GameInformation game3;
-//    game3.name = "한글 게임3";
-
-
     return 0;
+}
+
+void initCats() {
+    cats[0].name = "깜냥이";
+    cats[0].age = 5;
+    cats[0].character = "온순";
+    cats[0].level = 1;
+
+    cats[1].name = "귀요미";
+    cats[1].age = 3;
+    cats[1].character = "날카롭";
+    cats[1].level = 2;
+
+    cats[2].name = "수줍이";
+    cats[2].age = 7;
+    cats[2].character = "늘 잠만 잠";
+    cats[2].level = 3;
+
+    cats[3].name = "까꿍이";
+    cats[3].age = 2;
+    cats[3].character = "시끄러움";
+    cats[3].level = 4;
+
+    cats[4].name = "돼냥이";
+    cats[4].age = 1;
+    cats[4].character = "배고픔";
+    cats[4].level = 5;
+}
+
+void printCat(int selected) {
+    printf("\n\n== 당신은 이 고양이의 집사가 되었어요! ==\n\n");
+    printf(" 이름            : %s\n", cats[selected].name);
+    printf(" 나이            : %s\n", cats[selected].age);
+    printf(" 특징(성격)       : %s\n", cats[selected].character);
+    printf(" 레벨            : ");
+
+    for (int i = 0; i < cats[selected].level; i++) {
+        printf("%s", "★");
+    }
+    printf("\n\n");
 }
