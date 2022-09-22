@@ -1,115 +1,33 @@
-﻿#include <stdio.h>
+﻿#define _CRT_SEQURE_NO_WARNINGS
+
+#include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
 
-// 5마리의 고양이가 있다
-// 아무 키나 눌러서 랜덤으로 고양이를 뽑되,
-// 5마리 모두 다 수집을 해서 열심히 키우면 되는 게임 !
-// 중 복 발 생 가 능!!
-
-// 고양이
-// 이름, 나이, 성격, 키우기 난이도 (레벨)
-
-typedef struct {
-        char * name; //이름
-        int age; //나이
-        char * character; //성격
-        int level; //키우기 난이도 (1 - 5 / 5가 어려움)
-} CAT;
-
-// 현재까지 보유한 고양이
-int collection[5] = {0, 0, 0, 0, 0};
-
-//전체 고양이 리스트
-CAT cats[5];
-
-void initCats(); //고양이 정보 초기화
-void printCat(int selected);
-int checkCollection();
-
+#define MAX 10000
 int main() {
 
-    srand(time(NULL));
-    initCats();
-    while (1) {
-        printf("두근두근-! 어느 고양이의 집사가 될까요?\n아무 키나 눌러서 확인하세요!");
-        getchar();
+    // 파일 입출력
+    // 파일에 어떤 데이터를 저장
+    // 파일에 저장된 데이터를 불러오기
 
-        int selected = rand() % 5; // 0 - 4 사이의 숫자 반환
-        printCat(selected); // 뽑은 고양이 정보 출력
-        collection[selected] = 1; //고양이 뽑기 처리
+    // fputs, fgets 쌍
+    char line[MAX]; // char line[10000]
+    FILE *file = fopen("C:\\Users\\dudrh\\test\\test1.txt", "wb"); // r (읽기) w (쓰기) a (이어쓰기) // t(text) b(binary data)
+    if (file == NULL) {
+        printf("파일 열기 실패\n");
+        return 1;
+    }
 
-        int collectAll = checkCollection();
-        if (collectAll == 1) {
-            break;
-        }
+    fputs("fputs 를 이용해서 글을 적어볼게요\n", file);
+    fputs("잘 적히는지 확인해주세요\n", file);
 
-    };
+    // 파일을 열고 나서 닫지 않은 상태에서 어떤 프로그램에 문제가 생기면?
+    // 데이터 손실 발생 가능 ! 그래서 항상 파일은 닫아주는 습관을 들여주세요.
+    fclose(file);
+
+    // fprintf, fscanf 쌍
 
     return 0;
 }
 
-void initCats() {
-    cats[0].name = "깜냥이";
-    cats[0].age = 5;
-    cats[0].character = "온순";
-    cats[0].level = 1;
-
-    cats[1].name = "귀요미";
-    cats[1].age = 3;
-    cats[1].character = "날카롭";
-    cats[1].level = 2;
-
-    cats[2].name = "수줍이";
-    cats[2].age = 7;
-    cats[2].character = "늘 잠만 잠";
-    cats[2].level = 3;
-
-    cats[3].name = "까꿍이";
-    cats[3].age = 2;
-    cats[3].character = "시끄러움";
-    cats[3].level = 4;
-
-    cats[4].name = "돼냥이";
-    cats[4].age = 1;
-    cats[4].character = "배고픔";
-    cats[4].level = 5;
-}
-
-void printCat(int selected) {
-    printf("\n\n== 당신은 이 고양이의 집사가 되었어요! ==\n\n");
-    printf(" 이름            : %s\n", cats[selected].name);
-    printf(" 나이            : %s\n", cats[selected].age);
-    printf(" 특징(성격)       : %s\n", cats[selected].character);
-    printf(" 레벨            : ");
-
-    for (int i = 0; i < cats[selected].level; i++) {
-        printf("%s", "★");
-    }
-    printf("\n\n");
-}
-
-int checkCollection() {
-    // 1. 현재 보유한 고양이 목록도 출력
-    //2. 다 모았는지 여부를 반환
-
-    int collectALl = 1;
-
-    printf("\n\n === 보유한 고양이 목록이에요 === \n\n");
-    for (int i = 0; i < 5; i++) { // 고양이 수집 x
-        if (collection[i] == 0) {
-            printf("%10s", "(빈 박스");
-            collectALl = 0; // 다 모으지 못한 상태
-        } else { // 고양이 수집 o
-            printf("%10s", cats[i].name);
-        }
-    }
-    printf("\n=================================\n\n");
-
-    if (collectALl) { // 모든 고양이를 다 모은 경우
-        printf("\n\n 축하합니다 ! 모든 고양이를 다 모았어요. 열심히 키워주세요!!\n\n");
-
-    }
-
-    return collectALl;
-}
